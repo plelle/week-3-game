@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hangman</title>
+</head>
+<body>
+	
+	<header>
+		<img src="" alt="">
+		<h2>80's style</h2>
+		<h3 id="gameHeader"></h3>
+	</header>
+
+<div class="container">
+	
+	<img src="" alt="">
+
+	<p>Press any key to get started!</p>
+
+	<p>Wins</p>
+
+	<p id=""></p>
+
+	<p>Current Word</p>
+
+	<p id="currentWord"></p>
+
+	<p>Number of Guesses Remaining</p>
+
+	<p id="numGuess"></p>
+
+	<p>Letters Already Guesses</p>
+
+	<p id="lettersGuesses"></p>
+
+
+</div>
+	<script>
+		
+	var wins = 0;
+	var options = ["cat", "dog", "elephant", "monkey", "rabbit", "gorilla", "tiger", "lion"];
+	var randomWord = options[Math.floor(Math.random() * options.length)];
+	var numGuess = 12;
+	var lettersGuesses = [];
+	var currentWord = [];
+
+	for (var i = 0; i < randomWord.length; i++) {
+		currentWord.push("_");
+	}
+
+	console.log(randomWord);
+	console.log(currentWord);
+
+	var currentWordHTML = currentWord.join(" ");
+
+	document.querySelector("#currentWord").innerHTML = currentWordHTML;
+	document.querySelector("#numGuess").innerHTML = numGuess;
+
+	document.onkeyup = function(event){
+		var userGuess = String.fromCharCode(event.keycode).toLowerCase();
+
+		if(randomWord.indexOf(userGuess) >= 0){
+			for (var i = 0; i < randomWord.length; i++) {
+				if (randomWord[i] === userGuess) {
+					currentWord[i] = userGuess;
+				}
+			}
+			currentWordHTML = currentWord.join(" ");
+			document.querySelector("#currentWord").innerHTML = currentWordHTML;
+
+		}
+
+		else if(lettersGuesses.indexOf(userGuess) >= 0) {
+
+		}
+
+		else {
+			numGuess --;
+			lettersGuesses.push(userGuess);
+			document.querySelector("#numGuess").innerHTML = numGuess;
+			document.querySelector("#lettersGuesses").innerHTML = lettersGuesses;
+		}
+	}
+
+
+	</script>
+
+</body>
+</html>

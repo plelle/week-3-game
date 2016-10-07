@@ -14,13 +14,13 @@
 
 <div class="container">
 	
-	<img src="" alt="">
+	<img src="gameImage" alt="">
 
 	<p>Press any key to get started!</p>
 
 	<p>Wins</p>
 
-	<p id=""></p>
+	<p id="numWins"></p>
 
 	<p>Current Word</p>
 
@@ -30,7 +30,7 @@
 
 	<p id="numGuess"></p>
 
-	<p>Letters Already Guesses</p>
+	<p>Letters Already Guessed</p>
 
 	<p id="lettersGuesses"></p>
 
@@ -39,50 +39,119 @@
 	<script>
 		
 	var wins = 0;
-	var options = ["cat", "dog", "elephant", "monkey", "rabbit", "gorilla", "tiger", "lion"];
-	var randomWord = options[Math.floor(Math.random() * options.length)];
+	var wordOptions = ["cat", "dog", "elephant", "monkey", "rabbit", "gorilla", "tiger", "lion"];
+	var imgOptions = []
+	var randomNumber = Math.floor(Math.random() * wordOptions.length);
+	var randomWord = wordOptions[randomNumber];
 	var numGuess = 12;
 	var lettersGuesses = [];
+	var incorrectLetters = [];
 	var currentWord = [];
+	
 
 	for (var i = 0; i < randomWord.length; i++) {
-		currentWord.push("_");
-	}
-
-	console.log(randomWord);
-	console.log(currentWord);
-
-	var currentWordHTML = currentWord.join(" ");
-
-	document.querySelector("#currentWord").innerHTML = currentWordHTML;
-	document.querySelector("#numGuess").innerHTML = numGuess;
-
-	document.onkeyup = function(event){
-		var userGuess = String.fromCharCode(event.keycode).toLowerCase();
-
-		if(randomWord.indexOf(userGuess) >= 0){
-			for (var i = 0; i < randomWord.length; i++) {
-				if (randomWord[i] === userGuess) {
-					currentWord[i] = userGuess;
-				}
-			}
-			currentWordHTML = currentWord.join(" ");
-			document.querySelector("#currentWord").innerHTML = currentWordHTML;
-
+		if (randomWord === " ") {
+			currentWord.push("&nbsp");
 		}
-
-		else if(lettersGuesses.indexOf(userGuess) >= 0) {
-
-		}
-
 		else {
-			numGuess --;
-			lettersGuesses.push(userGuess);
-			document.querySelector("#numGuess").innerHTML = numGuess;
-			document.querySelector("#lettersGuesses").innerHTML = lettersGuesses;
+			currentWord.push("_");
 		}
-	}
 
+currentWordHTML = currentWord.join(" ");
+document.querySelector("#currentWord").innerHTML = currentWordHTML;
+document.querySelector("#numGuess").innerHTML = numGuess;
+
+document.onkeyup = function(event){
+	var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+	if (randomWord.indexOf(userGuess) >= 0){
+		console.log("Correct");
+
+		for (var i = 0; i < randomWord.length; i++) {
+			if (randomWord[i] === userGuess) {
+				currentWord[i] = userGuess;
+			}
+		}
+
+		console.log(currentWord);
+
+		currentWordHTML = currentWord.join(" ");
+		document.querySelector("#currentWord").innerHTML = currentWordHTML;
+	}
+	else if (incorrectLetters.indexOf(userGuess) < 0) {
+		console.log("Wrong");
+
+		numGuess--;
+		document.querySelector("#numGuess").innerHTML = numGuess;
+
+		incorrectLetters.push(userGuess);
+		incorrectLettersHTML = incorrectLetters.join(", ");
+		document.querySelector("#lettersGuesses").innerHTML = incorrectLettersHTML;
+
+		console.log(incorrectLetters);
+
+	}
+	if (currentWord.indexOf("_") < 0) {
+		console.log("You Win!");
+		document.querySelector("#gameHeader").innerHTML = randomWord;
+		document.querySelector("#gameImage").src = imgOptions[randomNumber];
+		wins++;
+		randomNumber = Math.floor(Math.random() * wordOptions.length);
+		randomWord = wordOptions[randomNumber];
+		numGuess = 12;
+		incorrectLetters = [];
+		currentWord = [];
+
+		for (var i = 0; i < randomWord.length; i++) {
+			if (randomWord[i] === " ") {
+				currentWord.push("&nbsp");
+			}
+			else {
+				currentWord.push("_");
+			}
+		}
+
+		console.log(randomWord);
+		console.log(currentWord);
+
+		document.querySelector("#numWins").innerHTML = wins;
+
+		currentWordHTML = currentWord.join(" ");
+		document.querySelector("#currentWord").innerHTML = currentWordHTML;
+		document.querySelector("#numGuess").innerHTML = numGuess;
+		document.querySelector("lettersGuesses").innerHTML = incorrectLetters;
+	}
+	else if (numGuess === 0) {
+		console.log("You Lose! HaHa!");
+		document.querySelector("#gameHeader").innerHTML = "";
+		document.querySelector("#gameImage").src = "assets/images/*****";
+
+		randomNumber = Math.floor(Math.random() * wordOptions.length);
+		randomWord = wordOptions[randomNumber];
+		numGuess = 12;
+		incorrectLetters = [];
+		currentWord = [];
+
+		for (var i = 0; i < randomWord.length; i++) {
+			if (randomWord[i] === " ") {
+				currentWord.push("&nbsp");
+			}
+			else {
+				currentWord.push("_");
+			}
+		}
+
+		console.log(randomWord);
+		console.log(currentWord);
+
+		currentWordHTML = currentWord.join(" ");
+		document.querySelector("#currentWord").innerHTML = currentWordHTML;
+		document.querySelector("#numGuess").innerHTML = numGuess;
+		document.querySelector("#lettersGuesses").innerHTML = incorrectLetters;
+	}
+}
+}
+		
 
 	</script>
 

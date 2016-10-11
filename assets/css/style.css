@@ -1,0 +1,46 @@
+body {
+	background-image: url("../images/zoobackground.png");
+	background-size: cover;
+
+}
+
+h1 {
+	font-family: 'Fontdiner Swanky', cursive;
+	font-size: 34px;
+	color: #000000;
+	text-align: center;
+	padding-top: 140px;
+	padding-bottom: 30px;
+}
+
+h3 {
+	font-size: 24px;
+	text-align: center;
+	font-family: 'Fontdiner Swanky', cursive;
+	color: #000000;
+}
+
+.zoo-font {
+	font-family: 'Fontdiner Swanky', cursive;
+	color: #000000;
+	font-size: 30px;
+}
+
+#numWins, #gameHeader, #currentWord, #numGuess, #lettersGuesses {
+	font-family: 'Fontdiner Swanky', cursive;
+	color: #000000;
+	font-size: 24px;
+	text-align: center;
+	padding-bottom: 15px;
+}
+
+#gameImage {
+	margin: auto;
+	width: 300px;
+	padding: 15px 0;
+}
+
+#currentWord {
+	text-align: center;
+
+}
